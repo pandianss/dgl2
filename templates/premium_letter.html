@@ -3,27 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <style>
+
         @page {
             size: A4;
             margin: 1.25cm;
-        }
-
-        /* Font Embedding (Mapping to ReportLab Registry) */
-        @font-face {
-            font-family: BankNotoDev;
-            src: url('BankNotoDev');
-        }
-        @font-face {
-            font-family: BankNotoDevBold;
-            src: url('BankNotoDevBold');
-        }
-        @font-face {
-            font-family: BankNotoTamil;
-            src: url('BankNotoTamil');
-        }
-        @font-face {
-            font-family: BankNotoTamilBold;
-            src: url('BankNotoTamilBold');
         }
 
         body { 
@@ -33,10 +16,10 @@
             font-size: 10pt;
         }
 
-        .hi { font-family: BankNotoDev; -pdf-font-name: BankNotoDev; -pdf-font-encoding: Identity-H; }
-        .hi-bold { font-family: BankNotoDevBold; -pdf-font-name: BankNotoDevBold; -pdf-font-encoding: Identity-H; }
-        .ta { font-family: BankNotoTamil; -pdf-font-name: BankNotoTamil; -pdf-font-encoding: Identity-H; }
-        .ta-bold { font-family: BankNotoTamilBold; -pdf-font-name: BankNotoTamilBold; -pdf-font-encoding: Identity-H; }
+        .hi { font-family: 'NotoSansDevanagari-Regular'; -pdf-font-name: NotoSansDevanagari-Regular; -pdf-font-encoding: Identity-H; }
+        .hi-bold { font-family: 'NotoSansDevanagariSemiCondensed-Bold'; -pdf-font-name: NotoSansDevanagariSemiCondensed-Bold; -pdf-font-encoding: Identity-H; }
+        .ta { font-family: 'NotoSerifTamilCondensed-Regular'; -pdf-font-name: NotoSerifTamilCondensed-Regular; -pdf-font-encoding: Identity-H; }
+        .ta-bold { font-family: 'NotoSerifTamilCondensed-Bold'; -pdf-font-name: NotoSerifTamilCondensed-Bold; -pdf-font-encoding: Identity-H; }
         
         /* Typography & Colors */
         .text-blue { color: #00338d; }
@@ -115,11 +98,19 @@
             </td>
             <td class="info-td">
                 <span class="label-sm ta-bold">முகவரி (TA)</span>
+                {% if addr_ta_img %}
+                <img src="data:image/png;base64,{{ addr_ta_img }}" style="max-height: 35pt; margin-top: 2pt;">
+                {% else %}
                 <span class="bold ta">{{ office_details.address_ta | safe }}</span>
+                {% endif %}
             </td>
             <td class="info-td info-td-last">
                 <span class="label-sm hi-bold">पता (HI)</span>
+                {% if addr_hi_img %}
+                <img src="data:image/png;base64,{{ addr_hi_img }}" style="max-height: 35pt; margin-top: 2pt;">
+                {% else %}
                 <span class="bold hi">{{ office_details.address_hi | safe }}</span>
+                {% endif %}
             </td>
         </tr>
         <!-- Row 2: Secondary Contact Info (Merged) -->
