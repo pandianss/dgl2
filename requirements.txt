@@ -1,0 +1,7 @@
+streamlit
+pandas
+openpyxl
+jinja2
+xhtml2pdf
+plotly
+python-dotenv
