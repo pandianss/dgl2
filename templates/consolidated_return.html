@@ -1,0 +1,79 @@
+{% extends "base_premium.html" %}
+
+{% block document_body %}
+    <style>
+        .return-table { width: 100%; border-collapse: collapse; margin-bottom: 20pt; }
+        .return-table th, .return-table td { border: 0.5pt solid #cbd5e1; padding: 4pt 3pt; font-size: 8.5pt; text-align: right; }
+        .return-table th { background-color: #f1f5f9; color: #00338d; font-weight: 800; text-align: center; font-size: 8pt; text-transform: uppercase; }
+        .return-table td.param-name { text-align: left; font-weight: 700; color: #334155; }
+        .category-row { background-color: #e2e8f0; font-weight: 800; text-align: left !important; padding-left: 8pt !important; text-transform: uppercase; font-size: 9pt; color: #1e293b; }
+        .val-current { font-weight: 800; color: #0f172a; }
+        .growth-pos { color: #15803d; font-weight: bold; }
+        .growth-neg { color: #be123c; font-weight: bold; }
+        .achv-box { font-weight: 800; background-color: #f8fafc; }
+    </style>
+
+    <table class="return-table">
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: left; padding-left: 8pt;">Business Parameter</th>
+                <th colspan="2">Status as at</th>
+                <th colspan="2">Growth / Variance</th>
+                <th colspan="2">Budget / Target</th>
+            </tr>
+            <tr>
+                <th width="14%">Current</th>
+                <th width="14%">FY Start</th>
+                <th width="12%">Amount</th>
+                <th width="10%">%</th>
+                <th width="14%">Target</th>
+                <th width="10%">Achv%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td colspan="7" class="category-row">{{ category.name }}</td>
+            </tr>
+            {% for param in category.params %}
+            <tr>
+                <td class="param-name">{{ param.displayName }}</td>
+                <td class="val-current">
+                    {% if param.isRatio %}{{ param.val_current | format_num }}%{% else %}₹ {{ param.val_current | format_num }} Cr{% endif %}
+                </td>
+                <td>
+                    {% if param.isRatio %}{{ param.val_fy_start | format_num }}%{% else %}₹ {{ param.val_fy_start | format_num }} Cr{% endif %}
+                </td>
+                <td class="{{ 'growth-neg' if param.growth_fy < 0 else 'growth-pos' }}">
+                    {% if param.isRatio %}{{ param.growth_fy | format_num }}%{% else %}₹ {{ param.growth_fy | format_num }} Cr{% endif %}
+                </td>
+                <td class="{{ 'growth-neg' if param.growth_fy < 0 else 'growth-pos' }}">
+                    {% if not param.isRatio %}
+                        {% set growth_pct = (param.growth_fy / param.val_fy_start * 100) if param.val_fy_start > 0 else 0 %}
+                        {{ growth_pct | format_num }}%
+                    {% else %}-{% endif %}
+                </td>
+                <td>
+                    {% if not param.isRatio %}₹ {{ param.budget_month | format_num }} Cr{% else %}-{% endif %}
+                </td>
+                <td class="achv-box">
+                    {% if not param.isRatio %}
+                        {% set achv = (param.val_current / param.budget_month * 100) if param.budget_month > 0 else 0 %}
+                        {{ achv | format_num }}%
+                    {% else %}-{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top: 30pt; padding: 15pt; background-color: #f8fafc; border: 0.5pt solid #e2e8f0; border-radius: 4pt; page-break-inside: avoid;">
+        <div style="font-weight: 800; font-size: 10pt; color: #00338d; margin-bottom: 8pt; text-transform: uppercase;">
+            Certificate of Authentication
+        </div>
+        <p style="font-size: 10pt; line-height: 1.5; text-align: justify; color: #334155; margin: 0;">
+            Certified that the consolidated figures for the Dindigul Region presented above have been cross-verified with the central MIS repository and official records. The data reflects a true and fair view of the regional performance as of the reporting date.
+        </p>
+    </div>
+{% endblock %}

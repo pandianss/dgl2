@@ -1,0 +1,63 @@
+{% extends "base_premium.html" %}
+
+{% block document_body %}
+    <p style="text-align: center; color: #64748b; font-size: 10pt; margin-bottom: 20pt; font-style: italic;">
+        Regional Performance Analytics for the period ended {{ period }}
+    </p>
+
+    {% for metric in metrics %}
+    <div class="metric-container" style="page-break-inside: avoid; margin-bottom: 30pt;">
+        <h2 style="font-size: 14pt; color: #00338d; border-bottom: 2pt solid #e2e8f0; padding-bottom: 5pt; margin-bottom: 15pt; text-transform: uppercase;">
+            {{ metric.label }}
+        </h2>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20pt;">
+            <!-- Top Performers -->
+            <div class="ranking-column">
+                <h3 style="font-size: 10pt; color: #15803d; background: #f0fdf4; padding: 4pt 8pt; border-radius: 4pt; margin-bottom: 10pt;">
+                    ↗ Top Performers
+                </h3>
+                {% for item in metric.top %}
+                <div style="display: flex; align-items: center; margin-bottom: 6pt; font-size: 9pt;">
+                    <div style="width: 18pt; height: 18pt; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 8pt; font-size: 8pt; color: #64748b;">
+                        {{ loop.index }}
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ item.name }}</div>
+                        <div style="height: 4pt; background: #f1f5f9; border-radius: 2pt; margin-top: 2pt;">
+                            <div style="width: {{ item.percent }}%; height: 100%; background: #0d9488; border-radius: 2pt;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 50pt; text-align: right; font-weight: 800; color: #0f172a; margin-left: 5pt;">
+                        {{ item.formatted_value }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Bottom Performers -->
+            <div class="ranking-column">
+                <h3 style="font-size: 10pt; color: #be123c; background: #fef2f2; padding: 4pt 8pt; border-radius: 4pt; margin-bottom: 10pt;">
+                    ▼ Area for Improvement
+                </h3>
+                {% for item in metric.bottom %}
+                <div style="display: flex; align-items: center; margin-bottom: 6pt; font-size: 9pt;">
+                    <div style="width: 18pt; height: 18pt; background: #fef2f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 8pt; font-size: 8pt; color: #be123c;">
+                        {{ loop.index }}
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ item.name }}</div>
+                        <div style="height: 4pt; background: #f1f5f9; border-radius: 2pt; margin-top: 2pt;">
+                            <div style="width: {{ item.percent }}%; height: 100%; background: #be123c; border-radius: 2pt;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 50pt; text-align: right; font-weight: 800; color: #0f172a; margin-left: 5pt;">
+                        {{ item.formatted_value }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

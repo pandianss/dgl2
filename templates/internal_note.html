@@ -1,0 +1,13 @@
+{% extends "base_premium.html" %}
+
+{% block document_body %}
+<div class="letter-body">
+    <div style="font-weight: bold; margin-bottom: 15pt; border-bottom: 0.5pt solid #e2e8f0; padding-bottom: 5pt;">
+        SUBJECT: {{ subject }}
+    </div>
+    
+    <div class="main-content">
+        {{ body_html | safe }}
+    </div>
+</div>
+{% endblock %}

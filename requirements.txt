@@ -5,3 +5,4 @@ jinja2
 xhtml2pdf
 plotly
 python-dotenv
+playwright

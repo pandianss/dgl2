@@ -1,0 +1,56 @@
+{% extends "base_premium.html" %}
+
+{% block document_body %}
+<style>
+    .recipient-box { margin-bottom: 20pt; font-size: 11pt; }
+    .observation-container {
+        background-color: #f8fafc;
+        border: 1pt solid #e2e8f0;
+        padding: 15pt;
+        border-radius: 6pt;
+        margin: 15pt 0;
+    }
+    .obs-header {
+        font-weight: 800;
+        color: #00338d;
+        text-transform: uppercase;
+        border-bottom: 1pt solid #cbd5e1;
+        padding-bottom: 5pt;
+        margin-bottom: 10pt;
+        font-size: 10pt;
+    }
+    .obs-body { white-space: pre-wrap; font-size: 10.5pt; color: #1e293b; min-height: 150pt; }
+    .deadline-note { font-weight: bold; color: #be123c; margin-top: 15pt; }
+</style>
+
+<div class="visit-content">
+    <div class="recipient-box">
+        To,<br>
+        The Branch Manager,<br>
+        <strong>{{ branch_name }} ({{ branch_code }})</strong>
+    </div>
+
+    <div class="letter-body">
+        <p>Sir / Madam,</p>
+        <p>
+            During the management visit undertaken at your branch on <strong>{{ visit_date }}</strong> by 
+            <strong>{{ visitor_name }}</strong> ({{ visitor_designation }}), the following key observations 
+            and areas for rectification were noted. You are advised to take immediate corrective action.
+        </p>
+
+        <div class="observation-container">
+            <div class="obs-header">Key Observations / Points for Rectification</div>
+            <div class="obs-body">{{ observations | safe }}</div>
+        </div>
+
+        <p>
+            Kindly ensure that all the above-mentioned points are addressed and a point-wise compliance 
+            report is submitted to this office within the stipulated time.
+        </p>
+        
+        <div class="deadline-note">
+            DEADLINE FOR COMPLIANCE: {{ deadline or '7 working days' }}
+        </div>
+    </div>
+</div>
+{% endblock %}
