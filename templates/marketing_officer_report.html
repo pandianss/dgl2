@@ -1,0 +1,46 @@
+{% extends "base_premium.html" %}
+
+{% block document_body %}
+<div class="letter-body">
+    <p style="text-align: center; color: #64748b; font-size: 10pt; margin-bottom: 20pt; font-style: italic;">
+        Branch coverage priorities and campaign follow-up for the period ended {{ period }}
+    </p>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th width="10%">SOL</th>
+                <th width="22%">Branch</th>
+                <th width="14%" align="right">Business</th>
+                <th width="14%" align="right">Deposits</th>
+                <th width="12%" align="right">Advances</th>
+                <th width="10%" align="right">CASA%</th>
+                <th width="8%" align="right">CD%</th>
+                <th width="10%">Priority Driver</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr class="{{ 'row-alt' if loop.index is odd else '' }}">
+                <td>{{ row.sol }}</td>
+                <td>{{ row.nameEn }}</td>
+                <td class="val-cell">{{ (row.Bus / 100) | format_num }}</td>
+                <td class="val-cell">{{ (row.Dep / 100) | format_num }}</td>
+                <td class="val-cell">{{ (row.Adv / 100) | format_num }}</td>
+                <td class="val-cell">{{ row.CASA_PCT | format_num }}</td>
+                <td class="val-cell">{{ row.CD_Ratio | format_num }}</td>
+                <td>{{ row.focus_reason }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top: 24pt; padding: 12pt; background-color: #f8fafc; border: 0.5pt solid #e2e8f0;">
+        <div style="font-weight: bold; color: #00338d; margin-bottom: 6pt; text-transform: uppercase;">Action Direction</div>
+        <p style="margin: 0; line-height: 1.5;">
+            Marketing officers may prioritise the above branches for deposit mobilization, CASA deepening, cross-sell
+            campaigns, and follow-up visits based on the highlighted performance constraints.
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@
 
 {% block document_body %}
 <style>
-    .recipient-box { margin-bottom: 20pt; font-size: 11pt; }
+    .recipient-box { margin-bottom: 20pt; font-size: 10pt; line-height: 1.4; }
     .observation-container {
         background-color: #f8fafc;
         border: 1pt solid #e2e8f0;
@@ -17,38 +17,57 @@
         border-bottom: 1pt solid #cbd5e1;
         padding-bottom: 5pt;
         margin-bottom: 10pt;
-        font-size: 10pt;
+        font-size: 9pt;
     }
     .obs-body { white-space: pre-wrap; font-size: 10.5pt; color: #1e293b; min-height: 150pt; }
-    .deadline-note { font-weight: bold; color: #be123c; margin-top: 15pt; }
+    .deadline-note { font-weight: bold; color: #be123c; margin-top: 15pt; font-size: 10pt; }
+    
+    .tri-label { display: block; font-size: 8.5pt; color: #64748b; margin-bottom: 2pt; }
+    .tri-main { font-weight: bold; }
 </style>
 
 <div class="visit-content">
     <div class="recipient-box">
-        To,<br>
-        The Branch Manager,<br>
-        <strong>{{ branch_name }} ({{ branch_code }})</strong>
+        <div class="ta" style="font-size: 9pt;">பெறுநர், கிளை மேலாளர்,</div>
+        <div class="hi" style="font-size: 9pt;">सेवा में, शाखा प्रबंधक,</div>
+        <div class="en">To, The Branch Manager,</div>
+        <div class="tri-main">
+            {% if branch_name_ta %}<span class="ta">{{ branch_name_ta }}</span> / {% endif %}
+            {% if branch_name_hi %}<span class="hi">{{ branch_name_hi }}</span> / {% endif %}
+            {{ branch_name }} ({{ branch_code }})
+        </div>
     </div>
 
     <div class="letter-body">
-        <p>Sir / Madam,</p>
         <p>
-            During the management visit undertaken at your branch on <strong>{{ visit_date }}</strong> by 
-            <strong>{{ visitor_name }}</strong> ({{ visitor_designation }}), the following key observations 
-            and areas for rectification were noted. You are advised to take immediate corrective action.
+            <span class="ta">ஐயா / அம்மா,</span> / 
+            <span class="hi">महोदय / महोदया,</span> / 
+            Sir / Madam,
+        </p>
+        
+        <p style="font-size: 10.5pt;">
+            During the management visit undertaken at your branch on <strong>{{ visit_date }}</strong>, 
+            the following key observations and areas for rectification were noted. 
+            You are advised to take immediate corrective action.
         </p>
 
         <div class="observation-container">
-            <div class="obs-header">Key Observations / Points for Rectification</div>
+            <div class="obs-header">
+                <div class="ta" style="font-size: 8pt; text-transform: none;">முக்கிய அவதானிப்புகள் / சரிசெய்யப்பட வேண்டிய புள்ளிகள்</div>
+                <div class="hi" style="font-size: 8pt; text-transform: none;">मुख्य अवलोकन / सुधार के बिंदु</div>
+                <div class="en">Key Observations / Points for Rectification</div>
+            </div>
             <div class="obs-body">{{ observations | safe }}</div>
         </div>
 
-        <p>
+        <p style="font-size: 10pt;">
             Kindly ensure that all the above-mentioned points are addressed and a point-wise compliance 
             report is submitted to this office within the stipulated time.
         </p>
         
         <div class="deadline-note">
+            <span class="ta">இணங்குவதற்கான காலக்கெடு:</span> / 
+            <span class="hi">अनुपालन की समय सीमा:</span> / 
             DEADLINE FOR COMPLIANCE: {{ deadline or '7 working days' }}
         </div>
     </div>

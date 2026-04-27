@@ -56,8 +56,10 @@ class MetricMapper:
         'td': 'TD',
         'term': 'TD',
         'td deposits': 'TD',
-        'total dep': 'Total Dep',
-        'total deposits': 'Total Dep',
+        'total dep': 'Dep',
+        'total deposits': 'Dep',
+        'dep': 'Dep',
+        'deposits': 'Dep',
         'bulk dep': 'Bulk_Dep',
 
         # Cash Holdings
@@ -149,13 +151,13 @@ class MetricMapper:
         td = td_comp if td_comp > 0 else get_val('TD')
         calculated['TD'] = td
 
-        # 8. Total Dep = SB + CD + TD
-        total_dep_comp = get_val('SB') + get_val('CD') + td
-        total_dep = total_dep_comp if total_dep_comp > 0 else get_val('Total Dep')
-        calculated['Total Dep'] = total_dep
+        # 8. Deposits = SB + CD + TD
+        dep_comp = get_val('SB') + get_val('CD') + td
+        dep = dep_comp if dep_comp > 0 else get_val('Dep')
+        calculated['Dep'] = dep
 
-        # 9. Business = Adv + Total Dep
-        calculated['Bus'] = adv + total_dep
+        # 9. Business = Adv + Deposits
+        calculated['Bus'] = adv + dep
 
         # 10. CASH_TOTAL = CASH_HAND + CASH_ATM + CASH_BC + CASH_BNA
         cash_comp = get_val('CASH_HAND') + get_val('CASH_ATM') + get_val('CASH_BC') + get_val('CASH_BNA')

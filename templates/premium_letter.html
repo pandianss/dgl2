@@ -103,7 +103,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for m in ['SB', 'CD', 'TD', 'CASA', 'Adv', 'Core_Agri', 'Core Ret', 'MSME', 'Gold', 'Bus', 'NPA'] %}
+            {% for m in ['SB', 'CD', 'TD', 'CASA', 'Dep', 'Adv', 'Core_Agri', 'Core Ret', 'MSME', 'Gold', 'Bus', 'NPA'] %}
             <tr class="{{ 'row-alt' if loop.index is odd else '' }}">
                 <td><span style="font-weight: bold;">{{ m.replace('_', ' ') }}</span></td>
                 <td class="val-cell" style="font-weight: normal;">{{ (prev_metrics[m] or 0) | format_num }}</td>

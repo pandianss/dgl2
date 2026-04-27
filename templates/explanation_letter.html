@@ -1,0 +1,87 @@
+{% extends "base_premium.html" %}
+
+{% block document_body %}
+<div class="letter-body">
+    <div style="margin-bottom: 16pt;">
+        <div style="font-weight: bold;">To,</div>
+        <div>The Branch Manager,</div>
+        <div>{{ branch_name }} ({{ sol }})</div>
+    </div>
+
+    <div style="font-weight: bold; margin-bottom: 12pt; border-bottom: 0.5pt solid #e2e8f0; padding-bottom: 5pt;">
+        Subject: Explanation sought for operational / performance variances as on {{ report_date }}
+    </div>
+
+    <p style="text-align: justify;">
+        The regional office review of the branch position as on <strong>{{ report_date }}</strong> indicates material
+        operational and performance variances that require your written explanation and corrective action plan.
+        The observations listed below have been system-generated from the available MIS and exception registers.
+    </p>
+
+    <div style="font-weight: bold; color: #00338d; text-transform: uppercase; margin-top: 15pt; border-left: 3pt solid #00338d; padding-left: 8pt; font-size: 10pt; margin-bottom: 10pt;">
+        I. Performance Movement Summary
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th width="34%">Metric</th>
+                <th width="22%" align="right">Previous</th>
+                <th width="22%" align="right">Current</th>
+                <th width="22%" align="right">Movement</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in metric_rows %}
+            <tr class="{{ 'row-alt' if loop.index is odd else '' }}">
+                <td>{{ row.metric.replace('_', ' ') }}</td>
+                <td class="val-cell">{{ row.previous_value | format_num }}</td>
+                <td class="val-cell">{{ row.current_value | format_num }}</td>
+                <td class="val-cell" style="color: {{ '#15803d' if row.movement >= 0 else '#be123c' }};">
+                    {{ row.movement | format_num }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="font-weight: bold; color: #00338d; text-transform: uppercase; margin-top: 15pt; border-left: 3pt solid #00338d; padding-left: 8pt; font-size: 10pt; margin-bottom: 10pt;">
+        II. Key Explanation Points
+    </div>
+    <ol style="margin: 0 0 0 16pt; padding: 0;">
+        {% for point in key_points %}
+        <li style="margin-bottom: 7pt; line-height: 1.5;">{{ point }}</li>
+        {% endfor %}
+    </ol>
+
+    <div style="font-weight: bold; color: #00338d; text-transform: uppercase; margin-top: 15pt; border-left: 3pt solid #00338d; padding-left: 8pt; font-size: 10pt; margin-bottom: 10pt;">
+        III. Exception Register Extract
+    </div>
+    {% if exception_rows %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th width="18%">Severity</th>
+                <th width="22%">Type</th>
+                <th width="60%">Observation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in exception_rows %}
+            <tr class="{{ 'row-alt' if loop.index is odd else '' }}">
+                <td>{{ row.severity }}</td>
+                <td>{{ row.type }}</td>
+                <td>{{ row.message }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No separate exception entries were recorded for the selected date.</p>
+    {% endif %}
+
+    <p style="margin-top: 20pt; text-align: justify;">
+        You are requested to submit a point-wise explanation along with the corrective strategy and target date for
+        rectification within <strong>three working days</strong> of receipt of this communication.
+    </p>
+</div>
+{% endblock %}

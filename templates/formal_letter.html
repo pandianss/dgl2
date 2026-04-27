@@ -1,0 +1,41 @@
+{% extends "base_premium.html" %}
+
+{% block document_body %}
+<style>
+    .recipient-area { margin-bottom: 20pt; line-height: 1.5; }
+    .salutation { margin-bottom: 15pt; }
+    .subject-line { font-weight: bold; margin-bottom: 15pt; border-bottom: 0.5pt solid #e2e8f0; padding-bottom: 5pt; }
+    .regards-area { margin-top: 30pt; }
+</style>
+
+<div class="letter-body">
+    <div class="recipient-area">
+        <div class="ta" style="font-size: 9pt;">பெறுநர்,</div>
+        <div class="hi" style="font-size: 9pt;">सेवा में,</div>
+        To,<br>
+        <strong>{{ recipient_name }}</strong><br>
+        {{ recipient_address | safe }}
+    </div>
+
+    <div class="salutation">
+        <span class="ta">ஐயா / அம்மா,</span> / <span class="hi">महोदय / महोदया,</span> / Sir / Madam,
+    </div>
+
+    <div class="subject-line">
+        <span class="ta" style="font-size: 8.5pt;">பொருள்:</span> / <span class="hi" style="font-size: 8.5pt;">विषय:</span> / SUBJECT: {{ subject }}
+        {% if reference %}
+        <br>
+        <span class="ta" style="font-size: 8.5pt;">பார்வை:</span> / <span class="hi" style="font-size: 8.5pt;">संदर्भ:</span> / REF: {{ reference }}
+        {% endif %}
+    </div>
+
+    <div class="main-content" style="min-height: 200pt;">
+        {{ body_html | safe }}
+    </div>
+    
+    <div class="regards-area">
+        Yours faithfully,<br>
+        <span class="ta">தங்கள் உண்மையுள்ள,</span> / <span class="hi">भवदीय,</span>
+    </div>
+</div>
+{% endblock %}

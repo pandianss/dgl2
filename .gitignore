@@ -12,6 +12,9 @@ venv/
 data/*.parquet
 data/*.csv
 !data/branches.csv
+!data/departments.csv
+!data/signatories.csv
+!data/grades.csv
 
 # PDF / Temp
 *.pdf

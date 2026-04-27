@@ -1,0 +1,5 @@
+name_en,name_ta,name_hi,scale_id,departments,is_second_line,is_region_head
+Dindigul Region Head,திண்டுக்கல் மண்டல தலைவர்,डिंडीगुल क्षेत्रीय प्रमुख,5,PLANNING,0,1
+Dindigul 2nd Line,திண்டுக்கல் இரண்டாம் நிலை அதிகாரி,डिंडीगुल द्वितीय पंक्ति अधिकारी,4,ADMINISTRATION,1,0
+Planning Manager,திட்ட மேலாளர்,योजना प्रबंधक,3,PLANNING,0,0
+Risk Officer,இடர் அதிகாரி,जोखिम अधिकारी,3,RISK MANAGEMENT,0,0

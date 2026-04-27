@@ -1,0 +1,8 @@
+scale_id,scale_name,is_executive
+1,Scale I - Officer,0
+2,Scale II - Manager,0
+3,Scale III - Senior Manager,0
+4,Scale IV - Chief Manager,1
+5,Scale V - AGM,1
+6,Scale VI - DGM,1
+7,Scale VII - GM,1

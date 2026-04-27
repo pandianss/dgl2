@@ -1,0 +1,59 @@
+{% extends "base_premium.html" %}
+
+{% block document_body %}
+<style>
+    .note-header { font-weight: bold; margin-bottom: 20pt; border-bottom: 2pt solid #00338d; padding-bottom: 8pt; text-align: center; font-size: 13pt; color: #00338d; }
+    .expense-table { width: 100%; border-collapse: collapse; margin: 15pt 0; }
+    .expense-table th, .expense-table td { border: 0.5pt solid #cbd5e1; padding: 8pt; text-align: left; }
+    .expense-table th { background-color: #f1f5f9; color: #00338d; text-transform: uppercase; font-size: 8.5pt; font-weight: 800; }
+    .amount-cell { text-align: right; font-family: 'Courier New', Courier, monospace; font-weight: bold; }
+    .total-row { background-color: #f8fafc; font-weight: 800; }
+    .justification-box { background-color: #fcfdfd; border: 0.5pt dashed #cbd5e1; padding: 10pt; border-radius: 4pt; margin-bottom: 15pt; }
+</style>
+
+<div class="letter-body">
+    <div class="note-header">
+        OFFICE NOTE: EXPENSE APPROVAL
+    </div>
+
+    <div class="subject-section" style="margin-bottom: 15pt; font-weight: bold;">
+        SUBJECT: {{ subject }}
+    </div>
+
+    <div class="justification-box">
+        <div style="font-size: 9pt; color: #64748b; text-transform: uppercase; font-weight: bold; margin-bottom: 5pt;">Justification / Proposal</div>
+        {{ body_html | safe }}
+    </div>
+
+    <table class="expense-table">
+        <thead>
+            <tr>
+                <th width="8%">S.No</th>
+                <th>Particulars of Expenditure</th>
+                <th width="22%" style="text-align: right;">Amount (₹)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.description }}</td>
+                <td class="amount-cell">{{ item.amount | format_num }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total-row">
+                <td colspan="2" style="text-align: right;">TOTAL ESTIMATED COST</td>
+                <td class="amount-cell">₹ {{ total_amount | format_num }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="margin: 15pt 0; padding: 8pt; border-left: 3pt solid #d4a64f; background-color: #fefce8; font-size: 10pt;">
+        <strong>Amount in words:</strong> Rupees {{ total_amount_words }} only.
+    </div>
+
+    <div style="margin-top: 20pt; font-size: 9.5pt; color: #475569; line-height: 1.6;">
+        <p>Submitted for approval. The proposed expenditure is necessitated for the smooth functioning of the regional operations and is within the administrative powers of the approving authority.</p>
+    </div>
+</div>
+{% endblock %}
